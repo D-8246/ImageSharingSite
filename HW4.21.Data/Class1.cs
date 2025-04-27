@@ -9,6 +9,7 @@ namespace HW4._21.Data
         public string Name { get; set; }
         public string Location { get; set; }
         public string Password { get; set; }
+        public int Views { get; set; }
     }
 
     public class ImageDB
@@ -24,7 +25,7 @@ namespace HW4._21.Data
         {
             using var connection = new SqlConnection(_connectionString);
             using var cmd = connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO Images VALUES (@name, @location, @password) " +
+            cmd.CommandText = "INSERT INTO Images VALUES (@name, @location, @password, 0) " +
                 "SELECT SCOPE_IDENTITY()";
             cmd.Parameters.AddWithValue("@name", image.Name);
             cmd.Parameters.AddWithValue("@location", image.Location);
@@ -49,9 +50,20 @@ namespace HW4._21.Data
                     Name = (string)reader["Name"],
                     Location = (string)reader["Location"],
                     Password = (string)reader["Password"],
+                    Views = (int)reader["Views"],
                 };
             }
             return null;
+        }
+
+        public void IncrementViewsForImage(Image image)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            using var cmd = connection.CreateCommand();
+            cmd.CommandText = "UPDATE Images SET Views += 1 WHERE Id = @id";
+            cmd.Parameters.AddWithValue("@id", image.Id);
+            connection.Open();
+            cmd.ExecuteNonQuery();
         }
     }
 }

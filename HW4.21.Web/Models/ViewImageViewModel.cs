@@ -8,6 +8,5 @@ namespace HW4._21.Web.Models
         public bool IsAuthroized { get; set; }
         public List<int> Ids { get; set; }
         public string Meessage { get; set; }
-        public int Count { get; set; }
     }
 }

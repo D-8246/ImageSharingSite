@@ -64,8 +64,8 @@ namespace HW4._21.Web.Controllers
             if (ids.Contains(image.Id))
             {
                 vivm.IsAuthroized = true;
-            }  
-            
+            }
+            db.IncrementViewsForImage(image);
             return View(vivm);
         }
 
