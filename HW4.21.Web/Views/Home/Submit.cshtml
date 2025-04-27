@@ -1,0 +1,15 @@
+﻿@model SubmitViewModel
+
+<div class="container">
+    <div class="col-md-6 offset-md-3">
+        <h2>
+            Thank you for uploading your images, here's the link to share with your friends:
+            <a href="@($"https://localhost:7153/home/viewimage?id={Model.Id}")">
+                https://localhost:7153/home/viewimage?id=@Model.Id
+            </a>
+        </h2>
+        <h3>Make sure to give them the password of "@Model.Password"</h3>
+    </div>
+</div>
+
+
